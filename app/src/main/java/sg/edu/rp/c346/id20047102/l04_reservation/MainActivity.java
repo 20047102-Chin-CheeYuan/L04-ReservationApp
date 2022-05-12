@@ -40,14 +40,6 @@ public class MainActivity extends AppCompatActivity {
         tp.setCurrentHour(19);
         tp.setCurrentMinute(30);
 
-
-        tp.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker v, int hourOfDay, int minute) {
-
-            }
-        });
-
         btConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,9 +60,16 @@ public class MainActivity extends AppCompatActivity {
                     clock = "PM";
                 }
 
+                String minute;
+                if (tp.getCurrentMinute().toString().length() < 2) {
+                    minute = "0" + tp.getCurrentMinute();
+                } else {
+                    minute = tp.getCurrentMinute().toString();
+                }
+
                 if (name.getText().toString().trim().length() != 0 && mobile.getText().toString().trim().length() != 0 && numPax.getText().toString().trim().length() != 0) {
 
-                    String text = String.format("Booking Success!\nName: %s\nPhone: %s\nPax: %s\nSmoking: %s\nDate: %d/%d/%d\nTime: %d:%d%s", name.getText(),mobile.getText(),numPax.getText(),checkSmoke,dp.getDayOfMonth(),month,dp.getYear(),tp.getCurrentHour(),tp.getCurrentMinute(),clock);
+                    String text = String.format("Booking Success!\nName: %s\nPhone: %s\nPax: %s\nSmoking: %s\nDate: %d/%d/%d\nTime: %d:%s%s", name.getText(), mobile.getText(), numPax.getText(), checkSmoke, dp.getDayOfMonth(), month, dp.getYear(), tp.getCurrentHour(), minute, clock);
 
                     Toast toast = Toast.makeText(MainActivity.this, text, Toast.LENGTH_LONG);
                     toast.show();
